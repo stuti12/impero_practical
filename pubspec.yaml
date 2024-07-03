@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc:
   json_annotation:
   equatable:
+  cached_network_image:
 dev_dependencies:
   flutter_test:
     sdk: flutter

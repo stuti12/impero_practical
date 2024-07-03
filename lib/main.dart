@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practical_stuti/data/repository/home_page_repository_impl.dart';
+import 'package:practical_stuti/presentation/cubit/home_page_cubit.dart';
 import 'package:practical_stuti/presentation/ui/home_screen.dart';
 
 void main() {
@@ -32,7 +35,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: BlocProvider( create: (context) =>
+          HomePageCubit(homePageRepository: HomePageRepositoryImpl()),child: HomeScreen(),),
     );
   }
 }
