@@ -93,7 +93,8 @@ class CeramicScreen extends StatelessWidget {
                           subCategory.product?.isNotEmpty == true
                       ? SizedBox(
                           height: 150,
-                          child: ListView.builder(
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) => const SizedBox(width: 10,),
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.horizontal,

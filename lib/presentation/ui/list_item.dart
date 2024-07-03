@@ -19,7 +19,7 @@ class ListItem extends StatelessWidget {
             children: [
               CachedNetworkImage(
                 imageUrl: product.imageName ?? '',
-                width: MediaQuery.of(context).size.width / 4,
+                width: MediaQuery.of(context).size.width / 3.5,
                 height: 100,
                 fit: BoxFit.fitHeight,
               ),
@@ -28,7 +28,7 @@ class ListItem extends StatelessWidget {
                 left: 10,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: AppColors.blue,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   padding: const EdgeInsets.all(4),
@@ -41,6 +41,7 @@ class ListItem extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(height: 10,),
         CustomTextWidget(text: product.name ?? '')
       ],
     );
