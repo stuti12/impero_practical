@@ -12,6 +12,7 @@ class HomePageCubit extends Cubit<HomePageState> {
       : super(const HomePageState()) {
     fetchCategories();
     fetchSubCategories();
+    _initializeScrollListener();
   }
 
   final HomePageRepository homePageRepository;
@@ -26,7 +27,7 @@ class HomePageCubit extends Cubit<HomePageState> {
               scrollController.position.maxScrollExtent &&
           hasMore) {
         currentPage++;
-        // await _callProductFetchApi(currentPage);
+        await fetchSubCategories();
       }
     });
   }
@@ -44,8 +45,17 @@ class HomePageCubit extends Cubit<HomePageState> {
   ///method for find all sub categories
   Future<void> fetchSubCategories() async {
     final response = await homePageRepository.getSubCategories();
-    emit(state.copyWith(
-        subCategoryList: response?.result?.category?[0].subCategories));
-    debugPrint("Sub category Res==${response}");
+    if (response != null && response.result?.category?[0].subCategories != null) {
+      final subCategories = response.result!.category![0].subCategories!;
+      if (subCategories.isEmpty) {
+        hasMore = false;
+      } else {
+        emit(state.copyWith(
+          subCategoryList: List.from(state.subCategoryList)..addAll(subCategories),
+        ));
+      }
+    } else {
+      hasMore = false;
+    }
   }
 }

@@ -75,8 +75,12 @@ class CeramicScreen extends StatelessWidget {
       body: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           return ListView.builder(
+            controller: context.read<HomePageCubit>().scrollController,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             itemBuilder: (context, index) {
+              if (index >= state.subCategoryList.length) {
+                return const Center(child: CircularProgressIndicator());
+              }
               final subCategory = state.subCategoryList[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +114,7 @@ class CeramicScreen extends StatelessWidget {
                 ],
               );
             },
-            itemCount: state.subCategoryList.length,
+            itemCount: state.subCategoryList.length + (context.read<HomePageCubit>().hasMore ? 1 : 0),
             shrinkWrap: true,
           );
         },
