@@ -26,10 +26,10 @@ class HomePageRepositoryImpl extends HomePageRepository {
   }
 
   @override
-  Future<CategoryResponse?>? getSubCategories() async {
+  Future<CategoryResponse?>? getSubCategories(int page) async {
     final request = CategoryRequest(
         categoryId: 56,
-        pageIndex: 1);
+        pageIndex: page);
     final response = await dio.post(
         '${AppConstant.baseUrl}Product/DashBoard',
         data: request,options: Options(contentType: 'application/json'));

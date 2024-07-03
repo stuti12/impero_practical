@@ -4,14 +4,15 @@ import 'package:practical_stuti/data/responses/category_response.dart';
 import 'package:practical_stuti/utils/app_colors.dart';
 import 'package:practical_stuti/utils/custom_text_widget.dart';
 
-class ListItem extends StatelessWidget {
-  const ListItem({super.key, required this.product});
+class ProductListItem extends StatelessWidget {
+  const ProductListItem({super.key, required this.product, this.onClick});
 
   final Product product;
+  final VoidCallback? onClick;
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(onTap: onClick,child:Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -44,6 +45,6 @@ class ListItem extends StatelessWidget {
         const SizedBox(height: 10,),
         CustomTextWidget(text: product.name ?? '')
       ],
-    );
+    ),);
   }
 }

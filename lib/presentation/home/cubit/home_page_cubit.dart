@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practical_stuti/data/repository/home_page_repository.dart';
 import 'package:practical_stuti/data/responses/category_response.dart';
+import 'package:practical_stuti/presentation/product_detail/ui/product_detail_screen.dart';
 
 part 'home_page_state.dart';
 
@@ -18,7 +19,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   final HomePageRepository homePageRepository;
   final ScrollController scrollController = ScrollController();
   bool hasMore = true;
-  int currentPage = 0;
+  int currentPage = 1;
 
   ///method for pagination
   void _initializeScrollListener() {
@@ -44,7 +45,7 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   ///method for find all sub categories
   Future<void> fetchSubCategories() async {
-    final response = await homePageRepository.getSubCategories();
+    final response = await homePageRepository.getSubCategories(currentPage);
     if (response != null && response.result?.category?[0].subCategories != null) {
       final subCategories = response.result!.category![0].subCategories!;
       if (subCategories.isEmpty) {
@@ -57,5 +58,11 @@ class HomePageCubit extends Cubit<HomePageState> {
     } else {
       hasMore = false;
     }
+
+  }
+
+  ///for navigate to product detail
+  void navigate({required BuildContext context,required Product product}){
+    Navigator.push(context,MaterialPageRoute(builder: (context) => ProductDetailScreen(product: product,),));
   }
 }
